@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var jsonstr = '{ "name": "zs", "age": 20, "s": "true" }'
+        // 转对象
+        var obj = JSON.parse(jsonstr)
+        console.log(obj);
+        console.log(typeof obj);
+        // 转字符串
+        var str = JSON.stringify(obj)
+        console.log(str);
+        console.log(typeof str);
+    </script>
+</body>
+
+</html>

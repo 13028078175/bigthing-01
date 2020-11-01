@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <!-- 导入页面的基本样式 -->
+  <link rel="stylesheet" href="./css/search.css" />
+  <!-- 导入 jQuery -->
+  <script src="./lib/jquery.js"></script>
+  <!-- 导入模板引擎 -->
+  <script src="./lib/template-web.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Logo -->
+    <img src="./images/taobao_logo.png" alt="" class="logo" />
+
+    <div class="box">
+      <!-- tab 栏 -->
+      <div class="tabs">
+        <div class="tab-active">宝贝</div>
+        <div>店铺</div>
+      </div>
+      <!-- 搜索区域（搜索框和搜索按钮） -->
+      <div class="search-box">
+        <input type="text" class="ipt" placeholder="请输入要搜索的内容" />
+        <button class="btnSearch">搜索</button>
+      </div>
+      <div class="suggest-list"></div>
+    </div>
+  </div>
+  <script type="text/html" id="moban">
+     {{each result}}
+     <div class="suggest-item">{{$value[0]}}</div>
+     {{/each}}
+  </script>
+  <script>
+    $(function () {
+      // 定义防抖函数
+      var timer = null
+      var cacheobj = {}
+
+      function fangdou(kw) {
+        timer = setTimeout(function () {
+          getsuggest(kw)
+        }, 500)
+      }
+
+      // 键盘点击事件
+      $('.ipt').on('keyup', function () {
+        clearTimeout(timer)
+        var keywords = $(this).val().trim()
+        if (keywords.length <= 0) {
+          return $('.suggest-list').empty().hide()
+        }
+
+        if (cacheobj[keywords]) {
+          return rendersuggest(cacheobj[keywords])
+        }
+
+        fangdou(keywords)
+
+      })
+
+      // 获取请求
+      function getsuggest(kw) {
+        $.ajax({
+          url: 'https://suggest.taobao.com/sug?q=' + kw,
+          dataType: 'JSONP',
+          success: function (res) {
+            console.log(res);
+            rendersuggest(res)
+          }
+        })
+      }
+      // 渲染列表
+      function rendersuggest(res) {
+        if (res.result.length <= 0) {
+          $('.suggest-list').empty().hide()
+        }
+        var ss = template('moban', res)
+        $('.suggest-list').html(ss).show()
+
+        var k = $('.ipt').val().trim()
+        cacheobj[k] = res
+      }
+    })
+
+
+  </script>
+</body>
+
+</html>

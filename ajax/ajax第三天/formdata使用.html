@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="">
+        <input type="text" name="xiaoming">
+        <input type="password" name="pwd">
+        <input type="checkbox" name="asd" value="chifan">吃饭
+        <input type="checkbox" name="asd" value="shuijiao">睡觉
+        <input type="checkbox" name="asd" value="heshui">喝水
+        <button type="submit">提交</button>
+    </form>
+    <script>
+        var form = document.querySelector('form')
+
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault()
+            var fd = new FormData(form)
+            console.log(fd.getAll("asd"));
+        })
+
+
+
+
+
+
+        // var fd = new FormData()
+        // fd.append("uname", "小明")
+        // fd.set("uname", "小红")
+        // fd.delete("uname")
+
+        // console.log(fd.get("uanme"));
+    </script>
+</body>
+
+</html>

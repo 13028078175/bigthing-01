@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+</head>
+
+<body>
+    <input type="file" id="file1" multiple>
+    <button>上传文件</button>
+    <!-- bootstrap 中的进度条 -->
+    <div class="progress" style="width: 500px; margin: 15px 10px;">
+        <div class="progress-bar progress-bar-striped active" style="width: 0%" id="percent">
+            0%
+        </div>
+    </div>
+    <img src="" alt="" id="img" width="800px">
+
+    <script>
+
+
+        var btn = document.querySelector('button')
+
+
+        btn.addEventListener('click', function () {
+            var files = document.getElementById('file1').files
+            console.log(files);
+            if (files.length <= 0) {
+                alert('请输入要上传的文件')
+            }
+            console.log('选择成功');
+            var fd = new FormData()
+            fd.append('avatar', files[0])
+
+            var xhr = new XMLHttpRequest()
+
+            // 获取上传进度
+            xhr.upload.onprogress = function (e) {
+                if (e.lengthComputable) {
+                    //   百分比= 加载的除以需求的
+                    var procentcomplete = Math.ceil(e.loaded / e.total * 100)
+                    console.log(procentcomplete);
+                    // $('#percent').attr('style', 'width:' + procentcomplete + '%').html(procentcomplete + '%')
+                    document.getElementById('percent').style.width = procentcomplete + '%'
+                    console.log(document.getElementById('percent').style.width);
+                    document.getElementById('percent').innerHTML = procentcomplete + '%'
+                }
+            }
+            xhr.upload.onload = function () {
+                $('#percent').removeClass().addClass('progress-bar progress-bar-success')
+            }
+            xhr.open('POST', 'http://www.liulongbin.top:3006/api/upload/avatar')
+
+            xhr.send(fd)
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText)
+                    console.log(data);
+                    if (data.status === 200) {
+                        // 图片路径
+                        document.getElementById('img').src = 'http://www.liulongbin.top:3006' + data.url
+                    } else {
+                        console.log('失败' + data.message);
+                    }
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

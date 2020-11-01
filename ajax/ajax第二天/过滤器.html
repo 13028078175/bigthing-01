@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">
+
+    </div>
+    <script type="text/html" id="moban">
+        <h1>{{num|jia2|cheng5|jian8|chu2}}</h1>
+    </script>
+    <script src="./评论列表案例模板/lib/template-web.js"></script>
+    <script>
+        template.defaults.imports.jia2 = function (arg) {
+            return arg + 2
+        }
+        template.defaults.imports.cheng5 = function (arg) {
+            return arg * 5
+        }
+        template.defaults.imports.jian8 = function (arg) {
+            return arg - 8
+        }
+        template.defaults.imports.chu2 = function (arg) {
+            return arg / 2
+        }
+
+        var data = {
+            num: 10
+        }
+
+        var s = template('moban', data)
+        console.log(s);
+
+        document.getElementById('box').innerHTML = s
+
+
+    </script>
+</body>
+
+</html>

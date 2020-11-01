@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jQuery.js"></script>
+</head>
+<body>
+    <button id="btnpost">post提取按钮</button>
+<script>
+    $(function(){
+        $('#btnpost').on('click',function(){
+        //     $.post('http://www.liulongbin.top:3006/api/addbook',{
+        //         bookname:'家庭伦理之爱情动作片',author:'不知道',publisher:'电影出版社'
+        //     },function(res){
+        //        console.log(res);
+        // })
+
+        $.ajax({
+               type:'POST',
+               url:'http://www.liulongbin.top:3006/api/getbooks',
+               data:{bookname:'啊撒大苏打',author:'萨达萨达',publisher:'阿萨大大的出版社'},
+               success:function(res){
+                   console.log(res);
+               }
+
+           })
+    })
+    })
+</script>
+</body>
+</html>

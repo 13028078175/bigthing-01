@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var str = '85872637471533203552943982';
+        var o = {};
+        for (var i = 0; i < str.length; i++) {
+            if (o[str.charAt(i)]) {
+                o[str.charAt(i)]++;
+            } else {
+                o[str.charAt(i)] = 1;
+            }
+        }
+        var indexStr = '';
+        var max = 0;
+        for (var key in o) {
+            if (max < o[key]) {
+                max = o[key];
+                indexStr = key;
+            }
+        }
+        console.log("出现最多的数字是：" + indexStr, "出现的次数：" + max);
+        var arr = str.split('')
+        var newarr = []
+        for (var i = 0; i < arr.length; i++) {
+            if (newarr.indexOf(arr[i]) == -1) {
+                newarr.push(arr[i])
+            }
+        }
+        console.log(newarr);
+
+        for (var i = 0; i < newarr.length - 1; i++) {
+            for (var j = 0; j < newarr.length - i - 1; j++) {
+                if (newarr[j] > newarr[j + 1]) {
+                    var step = newarr[j]
+                    newarr[j] = newarr[j + 1]
+                    newarr[j + 1] = step
+                }
+            }
+        }
+        console.log(newarr);
+    </script>
+</body>
+
+</html>

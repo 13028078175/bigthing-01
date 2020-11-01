@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="checkbox" id="all">全选
+    <button id="btn">反选</button>
+    <ul>
+        <li><input type="checkbox"></li>
+        <li><input type="checkbox"></li>
+        <li><input type="checkbox"></li>
+    </ul>
+    <script src="./jquery.js"></script>
+    <script>
+        $(function () {
+            $("#all").click(function () {
+                if ($(this)[0].checked) {
+                    $.each($("ul input"), function (index, item) {
+                        $(item).prop("checked", true);
+                    })
+                } else {
+                    $.each($("ul input"), function (index, item) {
+                        $(item).prop("checked", false);
+                    })
+                }
+            })
+            // $.each($("ul input"), function (index, item) {
+            //     $(item).prop("index", index);
+            // })
+            $("ul").on("click", "input", function (e) {
+                if ($("ul input:checked").length == 3) {
+                    $("#all").prop("checked", true)
+                } else {
+                    $("#all").prop("checked", false)
+                }
+            })
+            $("#btn").click(function () {
+
+                if ($("ul input:checked").length == 0) {
+                    $("#all").prop("checked", true)
+                    $.each($("ul input"), function (index, item) {
+                        $(item).prop("checked", true);
+                    })
+                } else if ($("ul input:checked").length == 3) {
+                    $("#all").prop("checked", false)
+                    $.each($("ul input"), function (index, item) {
+                        $(item).prop("checked", false);
+                    })
+                } else {
+                    $.each($("ul input"), function (index, item) {
+                        $(item).prop("index", index);
+                        if ($(item).prop("checked")) {
+                            $(item).prop("checked", false)
+                        } else {
+                            $(item).prop("checked", true)
+                        }
+                    })
+                }
+
+            })
+        })
+    </script>
+</body>
+
+</html>

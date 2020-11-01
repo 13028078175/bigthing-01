@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div id="box">
+
+    </div>
+    <script src="./评论列表案例模板/lib/template-web.js"></script>
+    <script type="text/html" id="moban">
+        <h1>姓名：{{uname}}</h1>
+        <h3>年龄：{{age}}</h3>
+    </script>
+    <script>
+        var data = {
+            uname: '张三',
+            age: 20
+        }
+        var s = template('moban', data)
+        console.log(s);
+        document.getElementById('box').innerHTML = s;
+    </script>
+
+</body>
+
+</html>

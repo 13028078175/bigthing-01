@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./jQuery上传文件模板/lib/bootstrap.css">
+    <script src="./jQuery上传文件模板/lib/jquery.js"></script>
+</head>
+
+<body>
+    <input type="file" id="file1">
+    <button id="btn">上传文件</button>
+    <!-- bootstrap 中的进度条 -->
+    <div class="progress" style="width: 500px; margin: 15px 10px;">
+        <div class="progress-bar progress-bar-striped active" style="width: 0%" id="percent">
+            0%
+        </div>
+    </div>
+    <img src="" alt="" id="img" style="width: 500px;">
+    <script>
+        var btn = document.getElementById('btn')
+        btn.addEventListener('click', function () {
+            var files = document.getElementById('file1').files
+            if (files.length <= 0) {
+                alert('请上传文件')
+            }
+            var fd = new FormData()
+            fd.append('avasar', files[0])
+            var xhr = new XMLHttpRequest()
+
+            xhr.upload.onprogress = function (e) {
+                if (e.lengthComputable) {
+                    var baifenbi = Math.ceil(e.loaded / e.total * 100)
+                    console.log(baifenbi);
+                    $('#percent').attr('style', 'width:' + baifenbi + '%').html(baifenbi + '%')
+                }
+            }
+            xhr.upload.onload = function () {
+                $('#percent').removeClass().addClass('progress-bar progress-bar-success')
+            }
+
+
+            xhr.open('POST', 'http://www.liulongbin.top:3006/api/upload/avatar')
+            xhr.send(fd)
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText)
+                    console.log(data);
+                    if (data.status === 200) {
+                        document.getElementById('img').src = 'http://www.liulongbin.top:3006' + data.url
+                    } else {
+                        console.log(data.message + '获取失败');
+                    }
+                }
+            }
+
+
+        })
+
+
+
+    </script>
+</body>
+
+</html>

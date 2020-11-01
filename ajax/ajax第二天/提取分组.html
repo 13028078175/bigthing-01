@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var str = '{{name}}'
+        // var pattern = /{{([a-zA-Z]+)}}/
+        var pattern = /{{([a-zA-Z]+})}/
+        //  检测字符串
+        //  0 整体正则
+        //  1 括号里面的    从左到右 从外到里
+        var result = pattern.exec(str)
+        console.log(result);
+    </script>
+</body>
+
+</html>

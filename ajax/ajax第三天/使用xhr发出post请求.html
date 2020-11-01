@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // var xhr = new XMLHttpRequest()
+
+        // xhr.open('POST', 'http://www.liulongbin.top:3006/api/addbook')
+
+        // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+
+        // xhr.send('bookname=水浒传&author=施耐庵&publisher=上海图书出版社')
+
+        // xhr.onreadystatechange = function () {
+        //     if (xhr.readyState === 4 && xhr.status === 200) {
+        //         console.log(xhr.responseText);
+        //     }
+        // }
+
+
+        // 实例化对象
+        var xhr = new XMLHttpRequest()
+        // open调用
+        xhr.open('POST', 'http://www.liulongbin.top:3006/api/addbook')
+        // 设置Content-Type
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        // send调用
+        xhr.send('bookname=三国演义&author=罗贯中&publisher=北京图书出版社')
+        // 监听事件
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 & xhr.status === 200) {
+                console.log(xhr.responseText);
+            }
+        }
+    </script>
+</body>
+
+</html>

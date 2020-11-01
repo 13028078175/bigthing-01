@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="../ajax第三天/jQuery上传文件模板/lib/jquery.js"></script>
+</head>
+
+<body>
+    <script>
+        $(function () {
+            $.ajax({
+                url: 'http://www.escook.cn:3006/api/jsonp?name=zs&age=15',
+                dataType: 'JSONP',
+                jsonp: 'callback',
+                jsonpCallback: 'abc',
+                success: function (res) {
+                    console.log(res);
+                }
+            })
+        })
+
+
+    </script>
+
+    <!-- <script src="http://www.escook.cn:3006/api/jsonp?name=zs&age=15&callback=jquery******"></script> -->
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/moban.js"></script>
+</head>
+
+<body>
+    <!-- <div id="box"></div>
+
+    <script type="text/html" id="moban">
+        <div>姓名:{{name}}</div>
+        <div>年龄:{{age}}</div>
+        <div>性别:{{sex}}</div>
+        <div>地址:{{address}}</div>
+    </script>
+    <script>
+        var data = {
+            name: 'zs',
+            age: 18,
+            sex: '男',
+            address: '西安'
+        }
+        var ss = template('moban', data)
+        document.getElementById('box').innerHTML = ss
+    </script> -->
+
+
+
+
+
+    <div id="box"></div>
+
+    <script type="text/html" id="moban">
+        <div>{{name}}</div>
+        <div>{{age}}</div>
+        <div>{{sex}}</div>
+        <div>{{address}}</div>
+
+    </script>
+    <script>
+
+        var data = {
+            name: '张三',
+            age: 18,
+            sex: '男',
+            address: '山西'
+        }
+
+        var ss = template('moban', data)
+
+        document.getElementById('box').innerHTML = ss
+
+
+    </script>
+
+
+
+</body>
+
+</html>

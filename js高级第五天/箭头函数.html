@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+     const fn=function(){
+         console.log(this);
+         return()=>{
+             console.log(this);
+         }
+     }
+     let obj={
+         address:'西安'
+     }
+    //   console.log(fn.call(obj));
+      var test=fn.call(obj)
+      test()
+</script>
+</body>
+</html>

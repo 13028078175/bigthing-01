@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <!-- 导入页面的基本样式 -->
+  <link rel="stylesheet" href="./css/search.css" />
+  <!-- 导入 jQuery -->
+  <script src="./lib/jquery.js"></script>
+
+
+</head>
+
+<body>
+  <div class="container">
+    <!-- Logo -->
+    <img src="./images/taobao_logo.png" alt="" class="logo" />
+
+    <div class="box">
+      <!-- tab 栏 -->
+      <div class="tabs">
+        <div class="tab-active">宝贝</div>
+        <div>店铺</div>
+      </div>
+      <!-- 搜索区域（搜索框和搜索按钮） -->
+      <div class="search-box">
+        <input type="text" class="ipt" placeholder="请输入要搜索的内容" /><button class="btnSearch">
+          搜索
+        </button>
+      </div>
+      <div class="suggestlist">
+
+      </div>
+    </div>
+  </div>
+  <!-- 模板引擎 -->
+  <script src="./lib/template-web.js"></script>
+  <script type="text/html" id="moban">
+    {{each result}}
+    <div class="suggest-item">{{$value[0]}}</div>
+    {{/each}}
+  </script>
+  <script>
+
+    $(function () {
+
+      var timer = null
+      //缓存数据
+      var cachedata = {}
+      // 防抖
+      function fangdou(kw) {
+        timer = setTimeout(function () {
+          getdata(kw)
+        }, 500)
+      }
+
+      // 点击键盘事件
+      $('.ipt').on('keyup', function () {
+        clearTimeout(timer)
+        var keywords = $(this).val().trim()
+        if (keywords.length <= 0) {
+          return
+        }
+        if (cachedata[keywords]) {
+          return xuanran(cachedata[keywords])
+        }
+
+        // console.log(keywords);
+        // getdata(keywords)
+        fangdou(keywords)
+      })
+
+      // 获取数据
+      function getdata(kw) {
+        $.ajax({
+          method: 'GET',
+          dataType: 'JSONP',
+          url: 'https://suggest.taobao.com/sug?q=' + kw,
+          success: function (res) {
+            // console.log(res);
+            xuanran(res)
+          }
+        })
+      }
+
+      // 渲染到页面
+      function xuanran(res) {
+        if (res.result.length <= 0) {
+          return $('.suggestlist').empty().hide()
+        }
+        var ss = template('moban', res)
+        $('.suggestlist').html(ss).show()
+
+        var k = $('.ipt').val().trim()
+        cachedata[k] = res
+      }
+    })
+  </script>
+</body>
+
+</html>

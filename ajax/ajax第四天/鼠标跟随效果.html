@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #angel {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="./angel.gif" alt="" id="angel">
+    <script src="./淘宝搜索案例/lib/jquery.js"></script>
+    <script>
+        $(function () {
+            var angel = $('#angel')
+            // 定义节流阀
+            var timer = null
+            $(document).on('mousemove', function (e) {
+                // console.log(e.pageX);
+                // console.log(e.pageY);
+                if (timer) {
+                    return
+                }
+                timer = setTimeout(function () {
+                    $(angel).css('top', (e.pageY - 40) + 'px').css('left', (e.pageX - 40) + 'px')
+                    timer = null
+                }, 16)
+            })
+        })
+    </script>
+</body>
+
+</html>

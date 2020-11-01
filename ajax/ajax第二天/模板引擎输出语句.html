@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">
+    </div>
+
+    <script type="text/html" id="moban">
+        <h2>
+            <span>{{name}}</span>
+            <span>{{age}}</span>
+        </h2>
+        <ul>
+            {{each girls}}
+            <li>
+               
+                <span>{{$index+1}}号女嘉宾</span>
+                <span>{{$value.name}}</span>
+                <span>{{$value.age}}</span>
+                <span>
+                    {{if $value.age < 30 }}
+                    理想型
+                    {{else if $value.age < 40 }}
+                    还可以
+                    {{else if $value.age < 50 }}
+                    绝对不行
+                    {{/if}}
+                </span>
+            </li>
+            {{/each}}
+        </ul>
+    </script>
+    <script src="./评论列表案例模板/lib/template-web.js"></script>
+    <script>
+        var data = {
+            name: "小明",
+            age: 20,
+            girls: [
+                { name: "小红", age: 22 },
+                { name: "小莉", age: 32 },
+                { name: "小美", age: 42 }
+            ]
+        }
+
+        var s = template('moban', data)
+        console.log(s);
+        document.getElementById('box').innerHTML = s
+    </script>
+</body>
+
+</html>

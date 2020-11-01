@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../ajax第一天/jQuery.js"></script>
+</head>
+
+<body>
+    <form action="/login" target="_self" method="post" id="f1">
+        <input type="text">
+        <br>
+        <input type="password" name="pwd">
+        <br>
+        <input type="checkbox" name="fuxuan">
+        <input type="radio" name="danxaun">
+        <select>
+            <option value="baozi">包子</option>
+            <option value="mantou">馒头</option>
+            <option value="zhou">粥</option>
+        </select>
+        <br>
+        <input type="area">
+        <input type="submit">
+    </form>
+
+    <script>
+        $(function () {
+
+            // $('#f1').submit(function (e) {
+            //     alert('监听成功')
+            //     e.preventDefault()
+            // })
+
+
+            $('#f1').on('submit', function (e) {
+                alert('监听成功')
+                e.preventDefault()
+                var data = $(this).serialize()
+                console.log(data);
+            })
+        })
+    </script>
+</body>
+
+</html>

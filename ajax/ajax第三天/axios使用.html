@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../ajax第三天/jQuery上传文件模板/lib/axios.js"></script>
+</head>
+
+<body>
+    <button id="btn1">get</button>
+    <button id="btn2">post</button>
+    <script>
+
+
+        document.getElementById('btn1').addEventListener('click', function () {
+            axios({
+                method: 'GET',
+                url: 'http://www.liulongbin.top:3006/api/get',
+                params: {
+                    uanme: '张三',
+                    age: 18
+                }
+            }).then(function (res) {
+                console.log(res.data);
+            })
+
+        })
+        document.getElementById('btn2').addEventListener('click', function () {
+            axios({
+                method: 'POST',
+                url: 'http://www.liulongbin.top:3006/api/post',
+                data: {
+                    uanme: '李四',
+                    age: 20
+                }
+            }).then(function (res) {
+                console.log(res.data);
+            })
+
+        })
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="margin-bottom: 15px;">
+        <input type="text" id="username" placeholder="请输入姓名">
+        <input type="text" id="age" placeholder="请输入性别">
+        <input type="text" id="sex" placeholder="请输入年龄">
+        <input type="button" value="提交" id="btn">
+    </div>
+    <table border="1" width="540">
+        <thead>
+            <tr>
+                <td>姓名</td>
+                <td>性别</td>
+                <td>年龄</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script src="./jquery.js"></script>
+    <script>
+        var btn = document.querySelector("#btn");
+        var username = document.querySelector("#username");
+        var age = document.querySelector("#age");
+        var sex = document.querySelector("#sex");
+        var data = [];
+        function xuanran() {
+            var datas = JSON.parse(localStorage.getItem("a"));
+
+            $.each(datas, function (index, item) {
+                var str = `<tr>
+                <td>${item.name}</td>
+                <td>${item.age}</td>
+                <td>${item.sex}</td>
+                <td><a href="javascript:;" index="${item.id}" id ="del">删除</a></td>
+            </tr>`;
+                document.querySelector("tbody").insertAdjacentHTML("beforeend", str)
+            })
+        }
+        xuanran()
+        var dataIndex = 0;
+        btn.onclick = function () {
+            var user = username.value.trim()
+            var ages = age.value.trim()
+            var sexs = sex.value.trim()
+            if (user == "" || ages == "" || sexs == "") {
+                return alert("请输入正确的信息")
+            }
+            var o = {
+                id: dataIndex,
+                name: user,
+                age: ages,
+                sex: sexs
+            }
+            data.push(o)
+            var str = `<tr>
+                <td>${user}</td>
+                <td>${ages}</td>
+                <td>${sexs}</td>
+                <td><a href="javascript:;" index="${dataIndex}" id ="del">删除</a></td>
+            </tr>`;
+            dataIndex++;
+            cun(data);
+            document.querySelector("tbody").insertAdjacentHTML("beforeend", str)
+            username.value = ''
+            age.value = ''
+            sex.value = ''
+        }
+        function cun(data) {
+            var fff = JSON.stringify(data)
+            localStorage.setItem("a", fff)
+        }
+        $('tbody').on('click', '#del', function (e) {
+            e.preventDefault();
+            $(this).parents('tr').remove();
+            var a = $(e.target).attr("index")
+            var del = null
+            $.each(data, function (index, item) {
+                console.log(a);
+                if (item.id == a) {
+                    del = item
+                }
+            })
+            console.log(del);
+            if (data.indexOf(del) != -1) {
+                console.log(data.indexOf(del));
+                data.splice(data.indexOf(del), 1)
+            }
+            cun(data)
+            console.log("_________________________________");
+        })
+    </script>
+</body>
+
+</html>
